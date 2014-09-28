@@ -1,3 +1,13 @@
+//-----------------------------------------------------------------------------
+// name: genit.cpp
+// desc: real-time signal generator
+//
+// author: Matt Horton (mattah@ccrma.stanford.edu)
+//   date: fall 2014
+//   uses: RtAudio by Gary Scavone
+//         forked from HelloSine.cpp by Ge Wang
+//-----------------------------------------------------------------------------
+
 #include "RtAudio.h"
 #include <math.h>
 #include <iostream>
