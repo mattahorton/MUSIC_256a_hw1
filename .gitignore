@@ -1,3 +1,4 @@
 scratch.txt
 *.o
 HelloSine*
+.DS_Store
