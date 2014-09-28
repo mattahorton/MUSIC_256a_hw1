@@ -14,6 +14,7 @@
 #include <random>
 #include <cstdlib>
 #include <string.h>
+#include <stdexcept>
 using namespace std;
 
 std::random_device rd;
@@ -128,26 +129,26 @@ int callme( void * outputBuffer, void * inputBuffer, unsigned int numFrames,
                 
             case 5:
                 if (i % samps_in_period == 0) { // Triangle wave
-                    buffy[i*MY_CHANNELS] = 0.0;
-                } else if ((i % samps_in_period) % duty_cycle == 0){
+                    buffy[i*MY_CHANNELS] = -1.0;
+                } else if (((i % samps_in_period) == duty_cycle)){
                     buffy[i*MY_CHANNELS] = 1.0;
                 } else if ((i % samps_in_period) < duty_cycle) {
                     samp = i % samps_in_period;
-                    val = 0.0 + (double) (samp * (double)(1.0 / duty_cycle));
+                    val = -1.0 + (double) (samp * (double)(2.0 / duty_cycle));
                     buffy[i*MY_CHANNELS] = val;
                     
                 } else if ((i % samps_in_period) > duty_cycle) {
                     samp = i % samps_in_period;
-                    val = 1.0 - (double) ((samp - duty_cycle) * (double)(1.0 / (samps_in_period - duty_cycle)));
+                    val = 1.0 - (double) ((samp - duty_cycle) * (double)(2.0 / (samps_in_period - duty_cycle)));
                     buffy[i*MY_CHANNELS] = val;
                 }
                 break;
-                
+    
             default:
                 buffy[i*MY_CHANNELS] = ::sin( 2 * MY_PIE * g_freq * g_t / MY_SRATE ); // Sine wave
                 break;
         }
-        
+        cerr << buffy[i*MY_CHANNELS] << endl;        
         if (micOn) { // use input flag
             buffy[i*MY_CHANNELS] = buffy[i*MY_CHANNELS] * inBuffy[i*MY_CHANNELS];
         }
