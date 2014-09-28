@@ -1,0 +1,7 @@
+srate - samp/s
+Ts - s/samp
+T - s
+f - 1/s
+
+samples in a period - srate * T
+ex. (1/440Hz)*44100 samples/s = 100.23 samples ~= 100 samples
