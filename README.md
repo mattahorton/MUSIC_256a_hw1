@@ -51,7 +51,9 @@ In deciding how to filter the signal type flags, I had a couple of options. I co
 Difficulties
 ==============
 
-The only difficulty I came up against was a mathematical one. I could not remember how to find the number of samples in a period for a while. That calculation is simply `sampling_rate * fundamental_period`.
+The first difficulty I came up against was a mathematical one. I could not remember how to find the number of samples in a period for a while. That calculation is simply `sampling_rate * fundamental_period`.
+
+The second was that there was a skip in some of my signals. Saw, impulse train, and pulse wave all had a ton of skipping. This was do to me using `i`, the iterator's counter, for my comparisons when constructing these signals. To solve the issue with sine, we used a global counter that we incremented manually. I just swapped in that counter, `g_t`, to fix these issues.
 
 Collaborators
 ==============
