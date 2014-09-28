@@ -45,3 +45,15 @@ genit [type] [frequency] [width] [input]
 
 Comments
 ==============
+
+In deciding how to filter the signal type flags, I had a couple of options. I could define a global and switch on that inside the callback, or I could pass `RtAudio::openStream` a pointer to `userData` that contained things like signal type, frequency, etc. I felt that due to the smaller nature of the project, globals would work fine. In larger projects, I'll user the `userData` pointer.
+
+Difficulties
+==============
+
+The only difficulty I came up against was a mathematical one. I could not remember how to find the number of samples in a period for a while. That calculation is simply `sampling_rate * fundamental_period`.
+
+Collaborators
+==============
+
+This project is forked from Ge Wang's [HelloSine](https://ccrma.stanford.edu/courses/256a-fall-2014/lectures/1b/HelloSine/).
