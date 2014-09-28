@@ -39,6 +39,37 @@ int sig;
 bool micOn;
 
 
+//-----------------------------------------------------------------------------
+// name: usageText()
+// desc: prints genit usage text
+//-----------------------------------------------------------------------------
+void usageText() {
+    cerr << "genit is a CLI signal generator tool." << endl;
+    cerr << endl;
+    cerr << "genit -h" << endl;
+    cerr << "     - print the usage text" << endl;
+    cerr << endl;
+    cerr << "genit [type] [frequency] [width] [input]" << endl;
+    cerr << endl;
+    cerr << "    [type]: --sine | --saw | --pulse | --noise | --impulse" << endl;
+    cerr << "            Default value: --sine" << endl;
+    cerr << "    [frequency]: an integer > 0 representing the frequency in Hz " << endl;
+    cerr << "                 (only applicable to some signal types)" << endl;
+    cerr << "                 Default value: 440" << endl;
+    cerr << "    [width]: pulse width (only applicable to some signal types). " << endl;
+    cerr << "             Must be a floating point value between 0.0 and 1.0, exclusive." << endl;
+    cerr << "             Default value: 0.5" << endl;
+    cerr << "    [input]: --input - if the input flag is given, genit will take an input" << endl; 
+    cerr << "             signal and multiply it by the generated signal." << endl;
+    cerr << endl;
+    cerr << "    Note: All flags are optional and have default values as described, but" << endl;
+    cerr << "          flags must be entered in order. For example, if you mean to specify a" << endl;
+    cerr << "          width, you must also specify a type and a frequency. Providing" << endl;
+    cerr << "          a value for a signal type that does not support that flag is" << endl;
+    cerr << "          allowed. The value will be ignored." << endl;
+    
+    
+}
 
 
 //-----------------------------------------------------------------------------
@@ -137,9 +168,17 @@ int main( int argc, char ** argv ) {
     unsigned int bufferBytes = 0;
     // frame size
     unsigned int bufferFrames = 512;
+  
+    if (argc == 1) {
+      usageText();
+      exit(1);
+    }
     
     if (argc >= 2) {
-        if (strcmp(argv[1], "--sine") == 0) {
+        if (strcmp(argv[1], "-h") == 0) {
+            usageText();
+            exit(1);
+        } else if (strcmp(argv[1], "--sine") == 0) {
             sig = 1;
         } else if (strcmp(argv[1], "--noise") == 0) {
             sig = 2;
