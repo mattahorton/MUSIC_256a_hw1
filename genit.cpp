@@ -171,7 +171,6 @@ int main( int argc, char ** argv ) {
   
     if (argc == 1) {
       usageText();
-      exit(1);
     }
     
     if (argc >= 2) {
